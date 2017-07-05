@@ -74,6 +74,11 @@ if [ -f /var/www/html/conf/nginx/nginx-site-ssl.conf ]; then
   cp /var/www/html/conf/nginx/nginx-site-ssl.conf /etc/nginx/sites-available/default-ssl.conf
 fi
 
+# https://stackoverflow.com/a/40808284/4424236
+if [ "$(echo /var/www/html/conf/nginx/*-custom.conf)" != "/var/www/html/conf/nginx/*-custom.conf" ]; then
+  cp /var/www/html/conf/nginx/*-custom.conf /etc/nginx/conf.d/
+fi
+
 # Display PHP error's or not
 if [[ "$ERRORS" != "1" ]] ; then
  echo php_flag[display_errors] = off >> "${fpm_conf}"

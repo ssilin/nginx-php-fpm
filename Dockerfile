@@ -2,6 +2,7 @@ FROM richarvey/nginx-php-fpm:php5
 
 MAINTAINER housewares <housewares@users.noreply.github.com>
 
+ADD conf/nginx.conf /etc/nginx/nginx.conf
 ADD scripts/start.sh /start.sh
 ADD scripts/pull /usr/bin/pull
 ADD scripts/push /usr/bin/push
