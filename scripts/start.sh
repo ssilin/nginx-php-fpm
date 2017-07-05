@@ -67,11 +67,19 @@ fi
 
 # Enable custom nginx config files if they exist
 if [ -f /var/www/html/conf/nginx/nginx-site.conf ]; then
-  cp /var/www/html/conf/nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
+  if [[ "$NGINX_ENVSUBST" = "1" ]] ; then
+    envsubst "$NGINX_ENVSUBST_VARS" < /var/www/html/conf/nginx/nginx-site.conf > /etc/nginx/sites-available/default.conf
+  else
+    cp /var/www/html/conf/nginx/nginx-site.conf /etc/nginx/sites-available/default.conf
+  fi
 fi
 
 if [ -f /var/www/html/conf/nginx/nginx-site-ssl.conf ]; then
-  cp /var/www/html/conf/nginx/nginx-site-ssl.conf /etc/nginx/sites-available/default-ssl.conf
+  if [[ "$NGINX_ENVSUBST" = "1" ]] ; then
+    envsubst "$NGINX_ENVSUBST_VARS" < /var/www/html/conf/nginx/nginx-site-ssl.conf > /etc/nginx/sites-available/default-ssl.conf
+  else
+    cp /var/www/html/conf/nginx/nginx-site-ssl.conf /etc/nginx/sites-available/default-ssl.conf
+  fi
 fi
 
 # Display PHP error's or not
