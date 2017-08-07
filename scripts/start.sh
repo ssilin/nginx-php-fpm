@@ -130,6 +130,11 @@ if [ ! -z "$PHP_UPLOAD_MAX_FILESIZE" ]; then
  sed -i "s/upload_max_filesize = 100M/upload_max_filesize= ${PHP_UPLOAD_MAX_FILESIZE}M/g" "${php_conf}"
 fi
 
+# Increase pm.max_children to 10
+if [ ! -z "$PHP_max_children" ]; then
+ sed -i "s/pm.max_children = 5/pm.max_children = ${PHP_max_children}/g" "${fpm_conf}"
+fi
+
 if [ ! -z "$PUID" ]; then
   if [ -z "$PGID" ]; then
     PGID=${PUID}
